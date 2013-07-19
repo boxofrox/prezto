@@ -5,9 +5,20 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+export ZP_CONF="${XDG_CONFIG_HOME:-${HOME}/.config}/zprezto"
+
 # Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+if [[ -s "${ZP_CONF}/init.zsh" ]]; then
+  source "${ZP_CONF}/init.zsh"
 fi
 
 # Customize to your needs...
+
+ZSH_CONFIG=${XDG_CONFIG_HOME:-${HOME}/.config}/zsh
+configs=(alias env function prompt)
+
+for config ($configs); do
+    [[ -r "$ZSH_CONFIG/$config" ]] && . $ZSH_CONFIG/$config
+done
+
+unset ZP_CONF ZSH_CONFIG configs
